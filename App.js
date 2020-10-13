@@ -1,20 +1,22 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
-import SelectScreen from './src/screens/SelectScreen';
+import CharacterScreen from './src/screens/CharacterScreen';
+import TodoScreen from './src/screens/TodoScreen';
 
 const App = createStackNavigator({
-  Select:          { screen: SelectScreen },
+  Character:          { screen: CharacterScreen },
+  Todo:               { screen: TodoScreen },
 }, {
   defaultNavigationOptions: {
     headerTitle: 'Your Status',
-    headerTintColor: '#fff',
+    headerTintColor: '#3f3f36',
     headerBackTitle: null,
     headerStyle: {
-      backgroundColor: '#034078',
+      backgroundColor: '#fffbf6',
     },
     headerTitleStyle: {
-      color: '#fff',
+      color: '#3f3f36',
     },
   },
 });
