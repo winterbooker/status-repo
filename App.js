@@ -9,12 +9,12 @@ import QuitScreen from './src/screens/QuitScreen';
 import StatusScreen from './src/screens/StatusScreen';
 
 const App = createStackNavigator({
+  Status:             { screen: StatusScreen },
   Character:          { screen: CharacterScreen },
   Todo1:              { screen: TodoScreen1 },
   Todo2:              { screen: TodoScreen2 },
   Todo3:              { screen: TodoScreen3 },
   Quit:               { screen: QuitScreen },
-  Status:             { screen: StatusScreen },
 }, {
   defaultNavigationOptions: {
     headerTitle: 'Your Status',

@@ -1,18 +1,23 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { WebView } from 'react-native-webview';
+import { Asset } from 'expo-asset';
 import * as SQLite from 'expo-sqlite';
 
+const assetHtml = require('./index.html');
 const db = SQLite.openDatabase('db');
+
 
 const StatusScreen = ({ navigation }) => {
   const [text, setText] = useState('');
 
   return (
-    <ScrollView style={styles.scrollView}>
-      <View style={styles.container}>
-        <Text style={styles.title}>成功</Text>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <WebView
+        source={require('./index.html')}
+        startInLoadingState
+      />
+    </View>
   );
 };
 
