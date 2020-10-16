@@ -4,12 +4,12 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('db');
 
-const TodoScreen3 = ({ navigation }) => {
+const QuitScreen = ({ navigation }) => {
   const [text, setText] = useState('');
 
   const add = (text) => {
     db.transaction(tx => {
-      tx.executeSql('update users set body = ? where id = 1;', [text]);
+      tx.executeSql('update users set quit = ? where id = 1;', [text]);
       tx.executeSql('select * from users', [], (_, { rows }) =>
         console.log(JSON.stringify(rows))
       );
@@ -20,13 +20,13 @@ const TodoScreen3 = ({ navigation }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.title}>健康のために何をしますか？</Text>
+        <Text style={styles.title}>これまで書き込んだ心技体を鍛えるために何をやめますか？</Text>
         <View style={styles.contents}>
           <View style={styles.content}>
-            <Text style={styles.text}>体：</Text>
+            <Text style={styles.text}>捨：</Text>
             <TextInput
               style={styles.input}
-              placeholder="ランニングをする"
+              placeholder="禁酒する"
               onChangeText={text => setText(text)}
               defaultValue={text}
             />
@@ -37,10 +37,10 @@ const TodoScreen3 = ({ navigation }) => {
           style={styles.button}
           onPress={() => {
             add(text);
-            navigation.navigate('Quit');
+            navigation.navigate('Status');
           }}
         >
-          <Text>次へ</Text>
+          <Text>完了</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -86,4 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoScreen3;
+export default QuitScreen;

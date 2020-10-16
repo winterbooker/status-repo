@@ -5,11 +5,11 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('db');
 
 const TodoScreen1 = ({ navigation }) => {
-  const [text1, setText1] = useState('');
+  const [text, setText] = useState('');
 
-  const add = (text1) => {
+  const add = (text) => {
     db.transaction(tx => {
-      tx.executeSql('update users set heart = ? where id = 1;', [text1]);
+      tx.executeSql('update users set heart = ? where id = 1;', [text]);
       tx.executeSql('select * from users', [], (_, { rows }) =>
         console.log(JSON.stringify(rows))
       );
@@ -27,8 +27,8 @@ const TodoScreen1 = ({ navigation }) => {
             <TextInput
               style={styles.input}
               placeholder="瞑想を10分する"
-              onChangeText={text1 => setText1(text1)}
-              defaultValue={text1}
+              onChangeText={text => setText(text)}
+              defaultValue={text}
             />
           </View>
         </View>
@@ -36,7 +36,7 @@ const TodoScreen1 = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            add(text1);
+            add(text);
             navigation.navigate('Todo2');
           }}
         >

@@ -4,11 +4,17 @@ import { createStackNavigator } from 'react-navigation-stack';
 import CharacterScreen from './src/screens/CharacterScreen';
 import TodoScreen1 from './src/screens/TodoScreen1';
 import TodoScreen2 from './src/screens/TodoScreen2';
+import TodoScreen3 from './src/screens/TodoScreen3';
+import QuitScreen from './src/screens/QuitScreen';
+import StatusScreen from './src/screens/StatusScreen';
 
 const App = createStackNavigator({
   Character:          { screen: CharacterScreen },
-  Todo1:               { screen: TodoScreen1 },
-  Todo2:               { screen: TodoScreen2 },
+  Todo1:              { screen: TodoScreen1 },
+  Todo2:              { screen: TodoScreen2 },
+  Todo3:              { screen: TodoScreen3 },
+  Quit:               { screen: QuitScreen },
+  Status:             { screen: StatusScreen },
 }, {
   defaultNavigationOptions: {
     headerTitle: 'Your Status',

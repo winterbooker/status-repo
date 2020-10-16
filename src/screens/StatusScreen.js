@@ -4,44 +4,13 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('db');
 
-const TodoScreen3 = ({ navigation }) => {
+const StatusScreen = ({ navigation }) => {
   const [text, setText] = useState('');
-
-  const add = (text) => {
-    db.transaction(tx => {
-      tx.executeSql('update users set body = ? where id = 1;', [text]);
-      tx.executeSql('select * from users', [], (_, { rows }) =>
-        console.log(JSON.stringify(rows))
-      );
-    },
-    );
-  };
 
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.title}>健康のために何をしますか？</Text>
-        <View style={styles.contents}>
-          <View style={styles.content}>
-            <Text style={styles.text}>体：</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="ランニングをする"
-              onChangeText={text => setText(text)}
-              defaultValue={text}
-            />
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            add(text);
-            navigation.navigate('Quit');
-          }}
-        >
-          <Text>次へ</Text>
-        </TouchableOpacity>
+        <Text style={styles.title}>成功</Text>
       </View>
     </ScrollView>
   );
@@ -86,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TodoScreen3;
+export default StatusScreen;

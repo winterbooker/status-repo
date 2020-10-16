@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import * as SQLite from 'expo-sqlite';
 
+const db = SQLite.openDatabase('db');
 
 const TodoScreen2 = ({ navigation }) => {
-  const [text2, setText2] = useState('');
+  const [text, setText] = useState('');
+
+  const add = (text) => {
+    db.transaction(tx => {
+      tx.executeSql('update users set technique = ? where id = 1;', [text]);
+      tx.executeSql('select * from users', [], (_, { rows }) =>
+        console.log(JSON.stringify(rows))
+      );
+    },
+    );
+  };
 
   return (
     <ScrollView style={styles.scrollView}>
@@ -11,12 +23,12 @@ const TodoScreen2 = ({ navigation }) => {
         <Text style={styles.title}>スキル向上のために何をしますか？</Text>
         <View style={styles.contents}>
           <View style={styles.content}>
-            <Text style={styles.text}>心：</Text>
+            <Text style={styles.text}>技：</Text>
             <TextInput
               style={styles.input}
               placeholder="Udemyで1時間勉強する"
-              onChangeText={text2 => setText2(text2)}
-              defaultValue={text2}
+              onChangeText={text => setText(text)}
+              defaultValue={text}
             />
           </View>
         </View>
@@ -24,8 +36,8 @@ const TodoScreen2 = ({ navigation }) => {
         <TouchableOpacity
           style={styles.button}
           onPress={() => {
-            add(1);
-            navigation.navigate('Todo2');
+            add(text);
+            navigation.navigate('Todo3');
           }}
         >
           <Text>次へ</Text>
