@@ -8,7 +8,7 @@ function CharacterScreen({ navigation }) {
   useEffect(() => {
     db.transaction(tx => {
       tx.executeSql(
-        'create table if not exists users (id integer primary key not null, sex interger, heart text, technique text, body text, quit text);',
+        'create table if not exists users (id integer primary key not null, sex interger, heart text, technique text, body text, quit text, heartCount interger default 0, techniqueCount interger default 0, bodyCount integer default 0);',
       );
       // tx.executeSql(
         // 'drop table users;',

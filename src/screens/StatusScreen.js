@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { WebView } from 'react-native-webview';
 import * as SQLite from 'expo-sqlite';
 
@@ -9,6 +9,17 @@ const db = SQLite.openDatabase('db');
 
 const Items = () => {
   const [items, setItems] = useState(null);
+
+  function handlePlusCount() {
+    db.transaction(tx => {
+      tx.executeSql(
+        'update users set heartCount = heartCount + 1 where id = 1;', null,
+      );
+      tx.executeSql('select * from users', [], (_, { rows }) =>
+        console.log(JSON.stringify(rows))
+      );
+    });
+  }
 
   useEffect(() => {
     db.transaction(tx => {
@@ -26,24 +37,33 @@ const Items = () => {
 
   return (
     <View style={styles.todolist}>
-      <View style={styles.todo}>
+      <TouchableOpacity style={styles.todo} onPress={() => handlePlusCount()}>
         <Text>心：</Text>
-        {items.map(({ id, heart }) => (
-          <Text key={id}>{heart}</Text>
+        {items.map(({ id, heart, heartCount }) => (
+          <View key={id}>
+            <Text>{heart}</Text>
+            <Text>{heartCount}</Text>
+          </View>
         ))}
-      </View>
-      <View style={styles.todo}>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.todo}>
         <Text>技：</Text>
         {items.map(({ id, technique }) => (
           <Text key={id}>{technique}</Text>
         ))}
-      </View>
-      <View style={styles.todo}>
+      </TouchableOpacity>
+
+
+      <TouchableOpacity style={styles.todo}>
         <Text>体：</Text>
         {items.map(({ id, body }) => (
           <Text key={id}>{body}</Text>
         ))}
-      </View>
+      </TouchableOpacity>
+
+
       <View style={styles.todoQuit}>
         <Text style={styles.quit}>捨：</Text>
         {items.map(({ id, quit }) => (
@@ -57,10 +77,7 @@ const Items = () => {
 const StatusScreen = () => {
   return (
     <View style={styles.container}>
-      <WebView
-        source={require('./graph.html')}
-        startInLoadingState
-      />
+      <WebView source={require('./graph.html')} startInLoadingState />
       <Items />
     </View>
   );
