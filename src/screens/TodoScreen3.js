@@ -26,7 +26,7 @@ const TodoScreen3 = ({ navigation }) => {
             <Text style={styles.text}>体：</Text>
             <TextInput
               style={styles.input}
-              placeholder="ランニングをする"
+              placeholder="ウォーキングを5kmする"
               onChangeText={text => setText(text)}
               defaultValue={text}
             />
@@ -37,10 +37,10 @@ const TodoScreen3 = ({ navigation }) => {
           style={styles.button}
           onPress={() => {
             add(text);
-            navigation.navigate('Quit');
+            navigation.navigate('Status');
           }}
         >
-          <Text>次へ</Text>
+          <Text>更新</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>

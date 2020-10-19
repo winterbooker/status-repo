@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import * as SQLite from 'expo-sqlite';
+import { CommonActions } from '@react-navigation/native';
 
 const db = SQLite.openDatabase('db');
 
@@ -17,10 +18,11 @@ const QuitScreen = ({ navigation }) => {
     );
   };
 
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.title}>これまで書き込んだ心技体を鍛えるために何をやめますか？</Text>
+        <Text style={styles.title}>心技体を鍛えるために何をやめますか？</Text>
         <View style={styles.contents}>
           <View style={styles.content}>
             <Text style={styles.text}>捨：</Text>
@@ -40,7 +42,7 @@ const QuitScreen = ({ navigation }) => {
             navigation.navigate('Status');
           }}
         >
-          <Text>完了</Text>
+          <Text>更新</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -51,6 +53,8 @@ const QuitScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#fffbf6',
   },
   title: {
     color: '#3f3f36',

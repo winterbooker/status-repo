@@ -20,13 +20,13 @@ const TodoScreen2 = ({ navigation }) => {
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
-        <Text style={styles.title}>スキル向上のために何をしますか？</Text>
+        <Text style={styles.title}>スキルを磨くために何をしますか？</Text>
         <View style={styles.contents}>
           <View style={styles.content}>
             <Text style={styles.text}>技：</Text>
             <TextInput
               style={styles.input}
-              placeholder="Udemyで1時間勉強する"
+              placeholder="オンライン講座で1時間勉強する"
               onChangeText={text => setText(text)}
               defaultValue={text}
             />
@@ -37,10 +37,10 @@ const TodoScreen2 = ({ navigation }) => {
           style={styles.button}
           onPress={() => {
             add(text);
-            navigation.navigate('Todo3');
+            navigation.navigate('Status');
           }}
         >
-          <Text>次へ</Text>
+          <Text>更新</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
