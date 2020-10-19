@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import * as SQLite from 'expo-sqlite';
-import { CommonActions } from '@react-navigation/native';
+
 
 const db = SQLite.openDatabase('db');
+
 
 const QuitScreen = ({ navigation }) => {
   const [text, setText] = useState('');
@@ -18,7 +19,6 @@ const QuitScreen = ({ navigation }) => {
     );
   };
 
-
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.container}>
@@ -28,9 +28,10 @@ const QuitScreen = ({ navigation }) => {
             <Text style={styles.text}>捨：</Text>
             <TextInput
               style={styles.input}
-              placeholder="禁酒する"
+              placeholder="お酒を飲まない"
               onChangeText={text => setText(text)}
               defaultValue={text}
+              maxLength={12}
             />
           </View>
         </View>
@@ -42,7 +43,7 @@ const QuitScreen = ({ navigation }) => {
             navigation.navigate('Status');
           }}
         >
-          <Text>更新</Text>
+          <Text style={styles.buttonText}>更新</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -57,11 +58,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffbf6',
   },
   title: {
-    color: '#3f3f36',
+    color: '#575757',
     textAlign: 'center',
     marginTop: 50,
   },
   text: {
+    color: '#575757',
     lineHeight: 40,
   },
   contents: {
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
   input: {
     width: 250,
     padding: 10,
-    borderBottomColor: '#3f3f36',
+    borderBottomColor: '#575757',
     borderBottomWidth: 1,
   },
   button: {
@@ -86,8 +88,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#EBEBEB',
+    backgroundColor: '#e6e3df',
+  },
+  buttonText: {
+    color: '#575757',
   },
 });
+
 
 export default QuitScreen;

@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 
+
 const db = SQLite.openDatabase('db');
+
 
 const TodoScreen2 = ({ navigation }) => {
   const [text, setText] = useState('');
@@ -26,9 +28,10 @@ const TodoScreen2 = ({ navigation }) => {
             <Text style={styles.text}>技：</Text>
             <TextInput
               style={styles.input}
-              placeholder="オンライン講座で1時間勉強する"
+              placeholder="オンライン講座で勉強する"
               onChangeText={text => setText(text)}
               defaultValue={text}
+              maxLength={12}
             />
           </View>
         </View>
@@ -40,7 +43,7 @@ const TodoScreen2 = ({ navigation }) => {
             navigation.navigate('Status');
           }}
         >
-          <Text>更新</Text>
+          <Text style={styles.buttonText}>更新</Text>
         </TouchableOpacity>
       </View>
     </ScrollView>
@@ -51,13 +54,16 @@ const TodoScreen2 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: Dimensions.get('window').height,
+    backgroundColor: '#fffbf6',
   },
   title: {
-    color: '#3f3f36',
+    color: '#575757',
     textAlign: 'center',
     marginTop: 50,
   },
   text: {
+    color: '#575757',
     lineHeight: 40,
   },
   contents: {
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
   input: {
     width: 250,
     padding: 10,
-    borderBottomColor: '#3f3f36',
+    borderBottomColor: '#575757',
     borderBottomWidth: 1,
   },
   button: {
@@ -82,8 +88,12 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#EBEBEB',
+    backgroundColor: '#e6e3df',
+  },
+  buttonText: {
+    color: '#575757',
   },
 });
+
 
 export default TodoScreen2;

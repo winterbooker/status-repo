@@ -2,16 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { ProgressChart } from 'react-native-chart-kit';
-import { createStackNavigator } from '@react-navigation/stack';
 
 
 const db = SQLite.openDatabase('db');
-const Stack = createStackNavigator();
 
 
 const Items = ({ navigation }) => {
   const [items, setItems] = useState(null);
 
+  // progressBarの設定
   const chartConfig = {
     backgroundColor: '#1cc910',
     backgroundGradientFrom: '#eff3ff',
@@ -23,7 +22,7 @@ const Items = ({ navigation }) => {
     },
   };
 
-
+  // 「心」を１％増やす（１で１００％になるから0.01ずつ足す）
   function handlePlusHeart() {
     db.transaction(tx => {
       tx.executeSql(
@@ -35,6 +34,7 @@ const Items = ({ navigation }) => {
     });
   }
 
+  // 「技」を１％増やす（１で１００％になるから0.01ずつ足す）
   function handlePlusTechnique() {
     db.transaction(tx => {
       tx.executeSql(
@@ -46,6 +46,7 @@ const Items = ({ navigation }) => {
     });
   }
 
+  // 「体」を１％増やす（１で１００％になるから0.01ずつ足す）
   function handlePlusBody() {
     db.transaction(tx => {
       tx.executeSql(
@@ -57,11 +58,9 @@ const Items = ({ navigation }) => {
     });
   }
 
+  // データベースから表示するデータを取得する
   useEffect(() => {
     db.transaction(tx => {
-      tx.executeSql(
-        'create table if not exists users (id integer primary key not null, sex interger, heart text, technique text, body text, quit text, heartCount float default 0, techniqueCount interger default 0, bodyCount integer default 0);',
-      );
       tx.executeSql(
         'select * from users where id = 1;',
         null,
@@ -73,11 +72,13 @@ const Items = ({ navigation }) => {
     });
   });
 
+
   if (items === null || items.length === 0) {
     return null;
   }
 
 
+  // progressBarの表示を正しく行うための分岐処理
   let heartCount;
 
   if (items[0].heartCount === 0) {
@@ -89,6 +90,7 @@ const Items = ({ navigation }) => {
   }
 
 
+  // progressBarの表示を正しく行うための分岐処理
   let techniqueCount;
 
   if (items[0].techniqueCount === 0) {
@@ -100,6 +102,7 @@ const Items = ({ navigation }) => {
   }
 
 
+  // progressBarの表示を正しく行うための分岐処理
   let bodyCount;
 
   if (items[0].bodyCount === 0) {
@@ -111,6 +114,7 @@ const Items = ({ navigation }) => {
   }
 
 
+  // データベースから取得した数値をprogressBarの設定で使う
   const data = {
     labels: ['心', '技', '体'],
     data: [heartCount, techniqueCount, bodyCount],
@@ -118,7 +122,7 @@ const Items = ({ navigation }) => {
 
 
   return (
-    <View style={styles.todolist}>
+    <View style={styles.progressBar}>
       <ProgressChart
         data={data}
         width={Dimensions.get('window').width}
@@ -130,69 +134,80 @@ const Items = ({ navigation }) => {
       />
 
 
-      <View style={styles.todo}>
-        <View style={styles.text}>
-          <Text>心：</Text>
-          {items.map(({ id, heart }) => (
-            <Text key={id}>{heart}</Text>
-          ))}
+      <View style={styles.todolist}>
+        <View style={styles.todo}>
+          <View style={styles.text}>
+            <Text>心： </Text>
+            {items.map(({ id, heart }) => (
+              <Text key={id}>{heart}</Text>
+            ))}
+          </View>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('Heart')}>
+              <Text style={styles.plus}>＊</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePlusHeart()}>
+              <Text style={styles.plus}>＋</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Heart')}>
-          <Text style={styles.plus}>*</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePlusHeart()}>
-          <Text style={styles.plus}>+</Text>
-        </TouchableOpacity>
-      </View>
 
 
-      <View style={styles.todo}>
-        <View style={styles.text}>
-          <Text>技：</Text>
-          {items.map(({ id, technique }) => (
-            <Text key={id}>{technique}</Text>
-          ))}
+        <View style={styles.todo}>
+          <View style={styles.text}>
+            <Text>技： </Text>
+            {items.map(({ id, technique }) => (
+              <Text key={id}>{technique}</Text>
+            ))}
+          </View>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('Technique')}>
+              <Text style={styles.plus}>＊</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePlusTechnique()}>
+              <Text style={styles.plus}>＋</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Technique')}>
-          <Text style={styles.plus}>*</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePlusTechnique()}>
-          <Text style={styles.plus}>+</Text>
-        </TouchableOpacity>
-      </View>
 
 
-      <View style={styles.todo}>
-        <View style={styles.text}>
-          <Text>体：</Text>
-          {items.map(({ id, body }) => (
-            <Text key={id}>{body}</Text>
-          ))}
+        <View style={styles.todo}>
+          <View style={styles.text}>
+            <Text>体： </Text>
+            {items.map(({ id, body }) => (
+              <Text key={id}>{body}</Text>
+            ))}
+          </View>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('Body')}>
+              <Text style={styles.plus}>＊</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handlePlusBody()}>
+              <Text style={styles.plus}>＋</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Body')}>
-          <Text style={styles.plus}>*</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => handlePlusBody()}>
-          <Text style={styles.plus}>+</Text>
-        </TouchableOpacity>
-      </View>
 
 
-      <View style={styles.todoQuit}>
-        <View style={styles.text}>
-          <Text style={styles.quit}>捨：</Text>
-          {items.map(({ id, quit }) => (
-            <Text style={styles.quit} key={id}>{quit}</Text>
-          ))}
+        <View style={styles.todoQuit}>
+          <View style={styles.text}>
+            <Text style={styles.quit}>捨：</Text>
+            {items.map(({ id, quit }) => (
+              <Text style={styles.quit} key={id}>{quit}</Text>
+            ))}
+          </View>
+          <View style={styles.button}>
+            <TouchableOpacity onPress={() => navigation.navigate('Quit')}>
+              <Text style={styles.editQuit}>＊</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Quit')}>
-          <Text style={styles.plus}>*</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );
 };
 
+// 最終的にエクスポートするコンポーネント
 const StatusScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
@@ -205,35 +220,55 @@ const StatusScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    height: Dimensions.get('window').height,
     backgroundColor: '#fffbf6',
   },
+  progressBar: {
+    marginTop: 100,
+  },
   todolist: {
-    marginTop: 50,
-    marginBottom: 80,
+    marginTop: 30,
+    marginLeft: 30,
   },
   todo: {
     flexDirection: 'row',
-    margin: 20,
-    alignSelf: 'center',
+    marginTop: 10,
+    marginBottom: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   text: {
     flexDirection: 'row',
-    marginRight: 70,
     alignItems: 'center',
   },
+  button: {
+    flexDirection: 'row',
+    position: 'absolute',
+    left: (Dimensions.get('window').width / 1.8),
+  },
   plus: {
-    backgroundColor: '#ddd',
+    fontSize: 13,
+    backgroundColor: '#e6e3df',
     padding: 10,
-    margin: 15,
+    margin: 10,
   },
   todoQuit: {
     flexDirection: 'row',
-    margin: 20,
-    alignSelf: 'center',
+    marginTop: 30,
+    marginBottom: 30,
+    paddingTop: 20,
+    paddingBottom: 20,
   },
   quit: {
-    color: '#FF6384',
+    color: '#B8B8B8',
+  },
+  editQuit: {
+    fontSize: 13,
+    backgroundColor: '#e6e3df',
+    padding: 10,
+    margin: 10,
   },
 });
+
 
 export default StatusScreen;

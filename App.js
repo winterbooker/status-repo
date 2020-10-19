@@ -19,10 +19,10 @@ function MyStack() {
     <Stack.Navigator>
       <Stack.Screen name="CreateData" component={CreateDataScreen} />
       <Stack.Screen name="Status" component={StatusScreen} options={{ gestureEnabled: false, headerShown: false }} />
-      <Stack.Screen name="Heart" component={TodoScreen1} />
-      <Stack.Screen name="Technique" component={TodoScreen2} />
-      <Stack.Screen name="Body" component={TodoScreen3} />
-      <Stack.Screen name="Quit" component={QuitScreen} />
+      <Stack.Screen name="Heart" component={TodoScreen1} options={{ headerStyle: { backgroundColor: '#fffbf6' }, headerTintColor: '#575757' }} />
+      <Stack.Screen name="Technique" component={TodoScreen2} options={{ headerStyle: { backgroundColor: '#fffbf6' }, headerTintColor: '#575757' }} />
+      <Stack.Screen name="Body" component={TodoScreen3} options={{ headerStyle: { backgroundColor: '#fffbf6' }, headerTintColor: '#575757' }} />
+      <Stack.Screen name="Quit" component={QuitScreen} options={{ headerStyle: { backgroundColor: '#fffbf6' }, headerTintColor: '#575757' }} />
     </Stack.Navigator>
   );
 }
