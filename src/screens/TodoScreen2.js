@@ -31,7 +31,6 @@ const TodoScreen2 = ({ navigation }) => {
               placeholder="オンライン講座で勉強する"
               onChangeText={text => setText(text)}
               defaultValue={text}
-              maxLength={12}
             />
           </View>
         </View>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
     lineHeight: 40,
   },
   contents: {
-    marginTop: 80,
+    marginTop: Dimensions.get('window').height * 0.05,
     marginBottom: 50,
     alignSelf: 'center',
   },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import * as SQLite from 'expo-sqlite';
 import { ProgressChart } from 'react-native-chart-kit';
 
@@ -139,7 +139,9 @@ const Items = ({ navigation }) => {
           <View style={styles.text}>
             <Text>心： </Text>
             {items.map(({ id, heart }) => (
-              <Text key={id}>{heart}</Text>
+              <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', heart); }}>
+                <Text style={styles.todoText} key={id} numberOfLines={1}>{heart}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.button}>
@@ -157,7 +159,9 @@ const Items = ({ navigation }) => {
           <View style={styles.text}>
             <Text>技： </Text>
             {items.map(({ id, technique }) => (
-              <Text key={id}>{technique}</Text>
+              <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', technique); }}>
+                <Text style={styles.todoText} key={id} numberOfLines={1}>{technique}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.button}>
@@ -175,7 +179,9 @@ const Items = ({ navigation }) => {
           <View style={styles.text}>
             <Text>体： </Text>
             {items.map(({ id, body }) => (
-              <Text key={id}>{body}</Text>
+              <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', body); }}>
+                <Text style={styles.todoText} key={id} numberOfLines={1}>{body}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.button}>
@@ -193,7 +199,9 @@ const Items = ({ navigation }) => {
           <View style={styles.text}>
             <Text style={styles.quit}>捨：</Text>
             {items.map(({ id, quit }) => (
-              <Text style={styles.quit} key={id}>{quit}</Text>
+              <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', quit); }}>
+                <Text style={styles.quit} key={id} numberOfLines={1}>{quit}</Text>
+              </TouchableOpacity>
             ))}
           </View>
           <View style={styles.button}>
@@ -224,7 +232,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fffbf6',
   },
   progressBar: {
-    marginTop: 100,
+    marginTop: Dimensions.get('window').height * 0.13,
   },
   todolist: {
     marginTop: 30,
@@ -232,14 +240,16 @@ const styles = StyleSheet.create({
   },
   todo: {
     flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 30,
+    marginTop: Dimensions.get('window').height * 0.02,
     paddingTop: 20,
     paddingBottom: 20,
   },
   text: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  todoText: {
+    maxWidth:170,
   },
   button: {
     flexDirection: 'row',
@@ -261,6 +271,7 @@ const styles = StyleSheet.create({
   },
   quit: {
     color: '#B8B8B8',
+    maxWidth:170,
   },
   editQuit: {
     fontSize: 13,
