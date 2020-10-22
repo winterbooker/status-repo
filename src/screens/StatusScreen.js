@@ -195,7 +195,7 @@ const Items = ({ navigation }) => {
         </View>
 
 
-        <View style={styles.todoQuit}>
+        <View style={styles.todo}>
           <View style={styles.text}>
             <Text style={styles.quit}>捨：</Text>
             {items.map(({ id, quit }) => (
@@ -204,7 +204,7 @@ const Items = ({ navigation }) => {
               </TouchableOpacity>
             ))}
           </View>
-          <View style={styles.button}>
+          <View style={styles.buttonQuit}>
             <TouchableOpacity onPress={() => navigation.navigate('Quit')}>
               <Text style={styles.editQuit}>＊</Text>
             </TouchableOpacity>
@@ -235,26 +235,28 @@ const styles = StyleSheet.create({
     marginTop: Dimensions.get('window').height * 0.13,
   },
   todolist: {
-    marginTop: 30,
-    marginLeft: 30,
+    margin: 25,
+    // backgroundColor: 'yellow',
   },
   todo: {
     flexDirection: 'row',
     marginTop: Dimensions.get('window').height * 0.02,
     paddingTop: 20,
     paddingBottom: 20,
+    // backgroundColor: 'blue',
   },
   text: {
     flexDirection: 'row',
     alignItems: 'center',
   },
   todoText: {
-    maxWidth:170,
+    maxWidth: Dimensions.get('window').width * 0.5,
   },
   button: {
     flexDirection: 'row',
     position: 'absolute',
-    left: (Dimensions.get('window').width / 1.8),
+    right: 0,
+    // backgroundColor: 'red',
   },
   plus: {
     fontSize: 13,
@@ -262,16 +264,13 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
   },
-  todoQuit: {
-    flexDirection: 'row',
-    marginTop: 30,
-    marginBottom: 30,
-    paddingTop: 20,
-    paddingBottom: 20,
-  },
   quit: {
     color: '#B8B8B8',
-    maxWidth:170,
+    maxWidth: Dimensions.get('window').width * 0.5,
+  },
+  buttonQuit: {
+    position: 'absolute',
+    right: 52,
   },
   editQuit: {
     fontSize: 13,
