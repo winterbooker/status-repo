@@ -13,7 +13,7 @@ function CreateDataScreen({ navigation }) {
         'create table if not exists users (id integer primary key not null, data interger, heart text, technique text, body text, quit text, heartCount float default 0, techniqueCount interger default 0, bodyCount integer default 0);',
       );
       tx.executeSql(
-        'insert into users (data) values (1);',
+        'insert into users (data) select (1) where not exists (select 1 from users where data = 1);',
       );
       tx.executeSql('select * from users', [], (_, { rows }) =>
         console.log(JSON.stringify(rows))
