@@ -193,22 +193,21 @@ const Items = ({ navigation }) => {
             </TouchableOpacity>
           </View>
         </View>
+      </View>
 
-
-        <View style={styles.todo}>
-          <View style={styles.text}>
-            <Text style={styles.quit}>捨：</Text>
-            {items.map(({ id, quit }) => (
-              <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', quit); }}>
-                <Text style={styles.quit} key={id} numberOfLines={1}>{quit}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-          <View style={styles.buttonQuit}>
-            <TouchableOpacity onPress={() => navigation.navigate('Quit')}>
-              <Text style={styles.editQuit}>＊</Text>
+      <View style={styles.todoQuit}>
+        <View style={styles.text}>
+          <Text style={styles.quit}>捨：</Text>
+          {items.map(({ id, quit }) => (
+            <TouchableOpacity key={id} onLongPress={() => { Alert.alert('', quit); }}>
+              <Text style={styles.quit} key={id} numberOfLines={1}>{quit}</Text>
             </TouchableOpacity>
-          </View>
+          ))}
+        </View>
+        <View style={styles.buttonQuit}>
+          <TouchableOpacity onPress={() => navigation.navigate('Quit')}>
+            <Text style={styles.editQuit}>＊</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -236,14 +235,15 @@ const styles = StyleSheet.create({
   },
   todolist: {
     margin: 25,
-    // backgroundColor: 'yellow',
   },
   todo: {
     flexDirection: 'row',
-    marginTop: Dimensions.get('window').height * 0.02,
-    paddingTop: 20,
-    paddingBottom: 20,
-    // backgroundColor: 'blue',
+    marginTop: Dimensions.get('window').height * 0.03,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    borderBottomColor: '#575757',
+    borderBottomWidth: 1,
   },
   text: {
     flexDirection: 'row',
@@ -256,27 +256,36 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     position: 'absolute',
     right: 0,
-    // backgroundColor: 'red',
   },
   plus: {
-    fontSize: 13,
-    backgroundColor: '#e6e3df',
+    fontSize: 12,
     padding: 10,
-    margin: 10,
+    marginTop: 2,
+    marginLeft: 5,
+    marginRight: 10,
+  },
+  todoQuit: {
+    flexDirection: 'row',
+    marginTop: Dimensions.get('window').height * 0.03,
+    margin: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    borderBottomColor: '#575757',
+    borderBottomWidth: 1,
   },
   quit: {
-    color: '#B8B8B8',
+    color: '#575757',
     maxWidth: Dimensions.get('window').width * 0.5,
   },
   buttonQuit: {
     position: 'absolute',
-    right: 52,
+    right: 56,
   },
   editQuit: {
-    fontSize: 13,
-    backgroundColor: '#e6e3df',
+    color: '#575757',
+    fontSize: 12,
     padding: 10,
-    margin: 10,
   },
 });
 
